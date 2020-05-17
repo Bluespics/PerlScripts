@@ -3,9 +3,11 @@ use Image::ExifTool;
 use Image::ExifTool::Location;
 my $exifTool = new Image::ExifTool;
 $exifTool->Options(Unknown => 1);
-my $info = $exifTool->ImageInfo('E:\Music Photographs\Festivals 2010\Newark 2010\Alex McKown\NEW10AMB001.jpg');
+my $info = $exifTool->ImageInfo('E:\Music Photographs\Festivals 2006\Maryport 2006\Geno Washington\BIMG_3772.JPG');
 my $group = '';
 my $tag;
+
+open(OH, '>', 'sample.txt');
 
 foreach $tag ($exifTool->GetFoundTags('Group0')) {
     if ($group ne $exifTool->GetGroup($tag)) {

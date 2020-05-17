@@ -4,7 +4,7 @@ use Image::ExifTool::Location;
 use File::List;
 
 # Give the path
-my $search = new File::List('E:\Music Photographs\Festivals 2006');
+my $search = new File::List('E:\Music Photographs\Festivals 2007');
 # Find all .JPG and .jpg in the path
 my @files = @{$search->find("?i\.JPG\$")};
 
@@ -20,7 +20,7 @@ for(@files){
 
     # Set new values
     $exif->SetNewValue(Artist => 'Tony Winfield');
-    $exif->SetNewValue(Copyright => 'Copyright 2006 - Tony Winfield. All rights reserved');
+    $exif->SetNewValue(Copyright => 'Copyright 2007 - Tony Winfield. All rights reserved');
     $exif->SetNewValue(Creator => 'Tony Winfield');
 
     # Write new image
