@@ -11,7 +11,7 @@ $exif->ExtractInfo($src);
 
 # Set new values
 $exif->SetNewValue(Artist => 'Tony Winfield');
-$exif->SetNewValue(Copyright => '© 2011-Tony Winfield-All rights reserved');
+$exif->SetNewValue(Copyright => 'Copyright 2011-Tony Winfield-All rights reserved');
 $exif->SetNewValue(Creator => 'Tony Winfield');
 
 # Write new image
