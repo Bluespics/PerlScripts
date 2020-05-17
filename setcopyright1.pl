@@ -3,9 +3,12 @@ use Image::ExifTool;
 use Image::ExifTool::Location;
 use File::List;
 
-my $search = new File::List('E:\Music Photographs\Festivals 2013\Newark 2013');
+# Give the path
+my $search = new File::List('E:\Music Photographs\Festivals 2006');
+# Find all .JPG and .jpg in the path
 my @files = @{$search->find("?i\.JPG\$")};
 
+# Loop through all of the files
 for(@files){
     $_ =~ s|/|\\|g;
     print("$_\n");
@@ -14,13 +17,12 @@ for(@files){
     my $src = $path;
 
     my $exif = Image::ExifTool->new();
-    # Extract info from existing image
-    $exif->ExtractInfo($src);
 
-    # Set a new value for a tag
-    my $tag = 'Copyright';
-    my $newValue = '2013 Tony Winfield. All Rights Reserved';
-    $exifTool->SetNewValue($tag, $newValue);
+    # Set new values
+    $exif->SetNewValue(Artist => 'Tony Winfield');
+    $exif->SetNewValue(Copyright => 'Copyright 2006 - Tony Winfield. All rights reserved');
+    $exif->SetNewValue(Creator => 'Tony Winfield');
+
     # Write new image
     $exif->WriteInfo($src);
 }
