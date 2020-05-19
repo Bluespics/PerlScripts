@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 use DBI;
-use strict;
 
 my $driver = "SQLite";
 my $database = "camloc.db";

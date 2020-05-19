@@ -11,8 +11,15 @@ $exif->ExtractInfo($src);
 
 # Set new values
 $exif->SetNewValue(Artist => 'Tony Winfield');
-$exif->SetNewValue(Copyright => 'Copyright 2011-Tony Winfield-All rights reserved');
+$exif->SetNewValue(Copyright => 'Copyright 2010-Tony Winfield. All rights reserved');
 $exif->SetNewValue(Creator => 'Tony Winfield');
+
+my $latitude = "51.2013587";
+my $longitude = "-4.1143607";
+
+# Set location"
+$exif->SetLocation($latitude, $longitude);
+
 
 # Write new image
 $exif->WriteInfo($src);
