@@ -4,6 +4,7 @@ use Image::ExifTool;
 use Image::ExifTool::Location;
 use DBI;
 
+# Open Database
 my $driver = "SQLite";
 my $database = "camloc.db";
 my $dsn = "DBI:$driver:dbname=$database";

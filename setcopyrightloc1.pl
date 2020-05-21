@@ -16,7 +16,7 @@ my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DB
 print "Opened database successfully\n";
 
 # Give the path
-my $search = new File::List('E:\Photographs\Travel\Black Country Museum 21082016');
+my $search = new File::List('E:\Photographs\Travel\Sundown 01072018');
 # Find all .JPG and .jpg in the path
 my @files = @{$search->find("?i\.JPG\$")};
 
@@ -30,10 +30,11 @@ for(@files){
     my $src = $path;
     my $exif = Image::ExifTool->new();
 
-    # Get create date from file
-    my $description = $exif->GetValue('CreateDate');
     # Extract info from existing image
     $exif->ExtractInfo($src);
+
+    # Get create date from file
+    my $description = $exif->GetValue('CreateDate');
 
     print("$description\n");
     my @fields = split ' ', $description;
@@ -64,13 +65,13 @@ for(@files){
     while (my @row = $sth->fetchrow_array()) {
        my ($latitude, $longitude ) = @row;
 
-       # Set location in image file
-       $exif->SetLocation($latitude, $longitude);
-
        # Set new values. Use create year in copyright.
        $exif->SetNewValue(Artist => 'Tony Winfield');
-       $exif->SetNewValue(Copyright => 'Copyright '.$year.' - Tony Winfield. All rights reserved');
+       $exif->SetNewValue(Copyright => 'Copyright '. $year .' - Tony Winfield. All rights reserved');
        $exif->SetNewValue(Creator => 'Tony Winfield');
+
+       # Set location in image file
+       $exif->SetLocation($latitude, $longitude);
 
        # Write new image
        $exif->WriteInfo($src);
