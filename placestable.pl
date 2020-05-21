@@ -13,15 +13,14 @@ print "Opened database successfully\n";
 
 my $stmt = qq(CREATE TABLE PLACES
     (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        STARTSECONDS      INTEGER    NOT NULL,
-        ENDSECONDS        INTEGER    NOT NULL,
-        PLACENAME         TEXT,
+        STARTSECONDS      INTEGER,
+        ENDSECONDS        INTEGER,
+        PLACENAME         VARCHAR(120),
         ADDRESS           VARCHAR(255),
-        LATITUDE          REAL    NOT NULL,
-        LONGITUDE         REAL    NOT NULL,
-        STARTTIME         TEXT    NOT NULL,
-        ENDTIME           TEXT    NOT NULL,
-        SEMTYPE           TEXT););
+        LATITUDE          REAL,
+        LONGITUDE         REAL,
+        STARTTIME         TEXT,
+        ENDTIME           TEXT););
 
 my $rv = $dbh->do($stmt);
 if($rv < 0){

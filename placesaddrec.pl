@@ -2,18 +2,6 @@
 use strict;
 use warnings;
 use DBI;
-use strict;
-
-my $latitude;
-my $longitude;
-my $placename;
-my $placeaddress;
-my $semtype;
-my $starttime;
-my $endtime;
-my $startsecs;
-my $endsecs;
-
 
 my $driver = "SQLite";
 my $database = "camloc.db";
@@ -31,16 +19,21 @@ while(my $line = <FH>){
     my $latitude = $fields[0];
     my $longitude = $fields[1];
     my $placename = $fields[2];
+    $placename =~ s/^\s//;
+    $placename = '"'.$placename.'"';
     my $placeaddress = $fields[3];
+    next if($placeaddress eq '');
     $placeaddress =~ s/\n/, /g;
     my $semtype = $fields[4];
     my $starttime = $fields[5];
+    $starttime = '"'.$starttime.'"';
     my $endtime = $fields[6];
+    $endtime = '"'.$endtime.'"';
     my $startsecs = $fields[7];
     my $endsecs = $fields[8];
 
-    my $stmt = qq(INSERT INTO PLACES (ID, STARTSECONDS, ENDSECONDS, PLACENAME, ADDRESS, LATITUDE, LONGITUDE, STARTTIME, ENDTIME, SEMTYPE)
-                    VALUES (NULL, $startsecs, $endsecs, $placename, $placeaddress, $latitude, $longitude, $starttime, $endtime, $semtype));
+    my $stmt = qq(INSERT INTO PLACES (ID, STARTSECONDS, ENDSECONDS, PLACENAME, ADDRESS, LATITUDE, LONGITUDE, STARTTIME, ENDTIME)
+                    VALUES (NULL, $startsecs, $endsecs, $placename, $placeaddress, $latitude, $longitude, $starttime, $endtime));
 #    my $rv = $dbh->do($stmt) or die $DBI::errstr;
     $dbh->do($stmt);
 }
