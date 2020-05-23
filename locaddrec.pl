@@ -17,7 +17,7 @@ $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::
 
 print "Opened database successfully\n";
 
-open FH, '<', 'split2.txt' or die "Cannot open file $!";
+open FH, '<', 'split1.txt' or die "Cannot open file $!";
 
 while(my $line = <FH>){
     # Split up line
@@ -40,6 +40,13 @@ while(my $line = <FH>){
     $hours = $tstr[0];
     $min = $tstr[1];
     $sec = $tstr[2];
+
+    $lattest = sprintf("%.3f", $fields[3]);
+    $lontest = sprintf("%.3f", $fields[4]);
+
+    next if(($lattest == 52.978) && ($lontest == -1.199));
+    next if(($lattest == 52.766) && ($lontest == -0.869));
+    next if(($lattest == 52.977) && ($lontest == -1.298));
 
     # Round latitude and longitude to 6 decimal places
     $longitude = sprintf("%.6f", $fields[2]);
