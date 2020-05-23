@@ -3,7 +3,7 @@ use DBI;
 use strict;
 
 my $driver = "SQLite";
-my $database = "camloc.db";
+my $database = "photoloc.db";
 my $dsn = "DBI:$driver:dbname=$database";
 my $userid = "Tony";
 my $password = "pass";
@@ -11,12 +11,12 @@ my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DB
 
 print "Opened database successfully\n";
 
-my $stmt = qq(CREATE TABLE LOCTRACK
+my $stmt = qq(CREATE TABLE LOCATION
     (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        FINDID      INT     NOT NULL,
-        DATETIME    TEXT    NOT NULL,
-        LATITUDE    REAL    NOT NULL,
-        LONGITUDE   REAL    NOT NULL););
+        STARTSECONDS      INT,
+        ENDSECONDS        INT,
+        LATITUDE          REAL,
+        LONGITUDE         REAL););
 
 my $rv = $dbh->do($stmt);
 if($rv < 0){
