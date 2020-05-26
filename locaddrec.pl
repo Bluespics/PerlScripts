@@ -45,8 +45,8 @@ while(my $line = <FH>){
     $sec = $tstr[2];
 
     # Short version of latitude and longitude to allow tolerance in matches
+    $lontest = sprintf("%.3f", $fields[2]);
     $lattest = sprintf("%.3f", $fields[3]);
-    $lontest = sprintf("%.3f", $fields[4]);
 
     # Exclude home, work and other places
     next if($lattest == 52.978 and $lontest == -1.199);
