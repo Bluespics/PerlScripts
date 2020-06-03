@@ -3,7 +3,7 @@ use Image::ExifTool;
 use Image::ExifTool::Location;
 my $exifTool = new Image::ExifTool;
 $exifTool->Options(Unknown => 1);
-my $info = $exifTool->ImageInfo('E:\Photographs\Travel\Ancaster 11062005\P6119775.jpg');
+my $info = $exifTool->ImageInfo('E:\Photographs\Travel\Galleries of Justice 08032006\IMG_7989.jpg');
 my $group = '';
 my $tag;
 
