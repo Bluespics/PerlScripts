@@ -16,7 +16,7 @@ my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DB
 print "Opened database successfully\n";
 
 # Give the path
-my $search = new File::List('E:\Photographs\Travel\Attenborough 15042012');
+my $search = new File::List('E:\Music Photographs\Festivals 2016\Ilfracombe 2016');
 # Find all .JPG and .jpg in the path
 my @files = @{$search->find("?i\.JPG\$")};
 

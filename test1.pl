@@ -1,9 +1,6 @@
 
+use Image::Magick;
 
-print "Hello World!\n";
-my $x = 3;
-my $y = 4;
-
-print($x * $y . "\n");
-
-print("Hello!");
+$q = Image::Magick->new;
+$q->Set(size=>'100x100', 'pixel[50,50]'=>'255,0,0');
+$q->ReadImage('xc:white');

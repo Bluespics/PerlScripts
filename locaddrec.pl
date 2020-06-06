@@ -19,8 +19,13 @@ $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::
 
 print "Opened database successfully\n";
 
+# Get file name
+print "File Name:      \n";
+$fname = <STDIN>;
+chomp $fname;
+
 # Open file
-open FH, '<', 'split4.txt' or die "Cannot open file $!";
+open FH, '<', $fname or die "Cannot open file $!";
 
 while(my $line = <FH>){
     # Split up line
