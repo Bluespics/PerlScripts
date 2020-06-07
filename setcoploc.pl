@@ -36,6 +36,8 @@ for(@files){
     my $src = $path;
     my $exif = Image::ExifTool->new();
 
+#   next if($src =~ m/\.db\z/);
+    next if($src !~ m{^.*(jpg?g|JPG)$});
     # Extract info from existing image
     $exif->ExtractInfo($src);
 
@@ -43,6 +45,7 @@ for(@files){
     my $description = $exif->GetValue('CreateDate');
 
     print("$description\n");
+
     my @fields = split ' ', $description;
     my $date = $fields[0];
     my $time = $fields[1];
@@ -58,6 +61,8 @@ for(@files){
     my $hours = $tstr[0];
     my $min = $tstr[1];
     my $sec = $tstr[2];
+
+    next if($mon < 0);
 
     # Get Epoch time
     $epoc = timelocal($sec, $min, $hours, $mday, $mon, $year);
