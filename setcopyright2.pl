@@ -13,6 +13,7 @@ $exif->ExtractInfo($src);
 $exif->SetNewValue(Artist => 'Tony Winfield');
 $exif->SetNewValue(Copyright => 'Copyright 2010-Tony Winfield. All rights reserved');
 $exif->SetNewValue(Creator => 'Tony Winfield');
+$exif->SetNewValue(Keywords => 'Newark Alex McKown Band Blues Festival 2010');
 
 my $latitude = "51.2013587";
 my $longitude = "-4.1143607";

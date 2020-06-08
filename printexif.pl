@@ -3,7 +3,7 @@ use Image::ExifTool;
 use Image::ExifTool::Location;
 my $exifTool = new Image::ExifTool;
 $exifTool->Options(Unknown => 1);
-my $info = $exifTool->ImageInfo('E:\Music Photographs\Festivals 2016\Ilfracombe 2016\Dr Feelgood\IMG_0444.jpg');
+my $info = $exifTool->ImageInfo('E:\Music Photographs\Festivals 2010\Newark 2010\Alex McKown\NEW10AMB007.JPG');
 my $group = '';
 my $tag;
 
