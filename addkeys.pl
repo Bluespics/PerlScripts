@@ -48,13 +48,19 @@ for(@files){
     }
     $keys =~ s|(\d{8})\b||;
 
+    # If the field contains "Festivals" add the keywords
+
     if($fields[-4] =~ /^Festivals/){
         $keys = $keys . ' Festival Blues Music UK'
     }
+
+    # Print file path and Keywords
+
     print("$src\n");
     print("$keys\n");
 
-    # Set new values. Use create year in copyright.
+    # Set new Keywords
+
     $exif->SetNewValue(Keywords => $keys);
 
     # Write new image

@@ -16,6 +16,11 @@ print "Longitude:           \n";
 $longitude = <STDIN>;
 chomp $longitude;
 
+# Input keywords
+print "Keywords spaces between: \n";
+$keys = <STDIN>;
+chomp $keys;
+
 # Search the path
 my $search = new File::List($fdir);
 # Find all .JPG and .jpg in the path
@@ -58,6 +63,7 @@ for(@files){
     $exif->SetNewValue(Artist => 'Tony Winfield');
     $exif->SetNewValue(Copyright => 'Copyright '. $year .' - Tony Winfield. All rights reserved');
     $exif->SetNewValue(Creator => 'Tony Winfield');
+    $exif->SetNewValue(Keywords => $keys);
 
     # Set location in image file
     $exif->SetLocation($latitude, $longitude);
