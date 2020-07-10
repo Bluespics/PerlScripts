@@ -112,11 +112,8 @@ sub open_file {
     #
     # how to scale the pic?
 
-    #Tk can only zoom or shrink by a factor, so
-    #you need to determine the size of the image
-    #then decide whether it needs shrinking or zooming.
-    #but Tk itself won't get the size of the image without
-    #external modules like Image::Info
+    # Tk can only zoom or shrink by a factor, so
+    # you need to determine the size of the image
 
     # First get width and height
     my $imgwidth;
