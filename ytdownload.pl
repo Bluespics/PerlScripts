@@ -37,13 +37,15 @@ my $lab1 = $mw -> Label(-text => "File Path:     ",
                         -font => ['ariel', '9', 'normal']);
 my $ent1 = $mw -> Entry(-width => 80,
                         -font => ['ariel', '8', 'normal']);
+my $but2 = $mw -> Button(-text => " Choose Dir ",
+                        -command => \&open_dir);
 my $lab2 = $mw -> Label(-text => "You Tube url:  ",
                         -font => ['ariel', '9', 'normal']);
 my $ent2 = $mw -> Entry(-textvariable=>\$txt1, -width => 80,
                         -font => ['ariel', '8', 'normal']);
 my $but1 = $mw -> Button(-text => " Download ",
                         -command => \&download_video);
-my $ent3 = $mw -> Entry(-width => 20,
+my $ent3 = $mw -> Entry(-width => 40,
                         -relief => 'flat',
                         -background => 'grey95',
                         -foreground => 'red',
@@ -54,14 +56,16 @@ my $ent3 = $mw -> Entry(-width => 20,
 $lab1 -> grid(-row => 2, -column => 1, -sticky => "w",
             -ipadx => 10, -ipady => 10);
 $ent1 -> grid(-row => 2, -column => 2,
-            -padx => 20, - pady => 5);
+            -padx => 10, - pady => 5);
+$but2 -> grid(-row => 2, -column => 3,
+            -padx => 10, -pady => 5);
 $lab2 -> grid(-row => 3, -column => 1, -sticky => "w",
             -ipadx => 10, -ipady => 10);
 $ent2 -> grid(-row => 3, -column => 2,
             -padx => 20, - pady => 10);
 $but1 -> grid(-row => 4, -column => 1,
             -columnspan => 2,
-            -ipadx => 30, -pady => 10);
+            -ipadx => 50, -pady => 10);
 $ent3 -> grid(-row => 5, -column => 1,
             -columnspan => 2,
             -padx => 20, -pady => 10);
@@ -85,7 +89,7 @@ sub clear_screen {
 sub display_about {
     my $ftp_warn = $mw->messageBox(
       -title   => 'You Tube Downloader',
-      -message => "Author - Tony Winfield\n\nVersion 1.0 - 03/09/2020",
+      -message => "Author - Tony Winfield\n\nVersion 1.01 - 26/09/2020",
       -type    => 'OK',
       -icon    => 'info',
     );
@@ -111,16 +115,19 @@ sub add_edit_popup
 sub download_video {
     my $path = $ent1 -> get();
     my $fdir = $ent2 -> get();
-    $ent3 -> insert('0.0', '  Please Wait');
+    $ent3 -> insert('0.0', '   Sorry Download Failed - Format Not Supported');
     chdir $path;
     if ($fdir) {
         my $tube = WWW::YouTube::Download->new;
         my $video_id = $tube->video_id($fdir);
         my $vtitle = $tube->get_title($video_id);
+        my $fmtlist = $tube->get_fmt($video_id);
+
         $vtitle =~ s/[^a-zA-Z0-9 ,]//g;
         $tube->download($video_id, { filename => "$vtitle" . '.' . "{suffix}" });
+#        $tube->download($video_id, { filename => "$vtitle" . '.' . "mp3" });
         $ent3 -> delete('0.0', 'end');
-        $ent3 -> insert('0.0', '   Download Complete');
+        $ent3 -> insert('0.0', '                          Download Complete');
         $ent2 -> delete('0.0', 'end');
         }
 }

@@ -7,6 +7,7 @@ use Image::ExifTool;
 use Image::ExifTool::Location;
 use Image::Size;
 use Math::Round;
+use Win32::Console;
 
 my $mw = new MainWindow;   # Main MainWindow
 $mw -> title("Display JPEG");
@@ -14,14 +15,22 @@ $mw -> title("Display JPEG");
 my $menubar = $mw -> Menu(-type => 'menubar');
 $mw -> configure(-menu => $menubar);
 my $mfile = $menubar->cascade(-label => '~File', -tearoff => 0);
+my $mhelp = $menubar->cascade(-label => '~Help', -tearoff => 0);
+
 $mfile->command(-label => '~Open',
                 -accelerator => 'Control+o',
                 -command => \&open_file);
 $mfile->command(-label => '~Clear',
                 -accelerator => 'Control+c',
                 -command => \&clear_screen);
+
+$mhelp -> command(-label => '~About',
+                -accelerator => 'Control+a',
+                -command => \&display_about);
+
 $mw -> bind('<Control-o>', [\&open_file]);
 $mw -> bind('<Control-c>', [\&clear_screen]);
+$mw -> bind('<Control-a>', [\&display_about]);
 
 my $types = [ ['JPG files', '.jpg'],
               ['All Files',   '*'],];
@@ -68,6 +77,19 @@ sub clear_screen {
     $photo_obj = $mw->Photo(-file => '' );
     $photo_obj_scaled = $mw->Photo(-file => '' );
     $display->configure(-image => $photo_obj_scaled);
+}
+
+sub display_about {
+    my $ftp_warn = $mw->messageBox(
+      -title   => 'Photograph Display',
+      -message => "Author - Tony Winfield\n\nVersion 1.01 - 25/09/2020",
+      -type    => 'OK',
+      -icon    => 'info',
+    );
+
+    if ( $ftp_warn eq 'OK' ) {
+      exit;
+  }
 }
 
 sub open_file {
@@ -135,4 +157,5 @@ sub open_file {
 
     $display->configure(-image => $photo_obj_scaled);
 
+    Win32::Console::Free();
 }
