@@ -57,7 +57,7 @@ sub compute_lb {
     # The lb scale's slider automatically moves when this
     # $lb_val is changed
     $lb_val = round($kg_val * 2.205);
-    $st_val = round($lb_val / 14);
+    $st_val = int($lb_val / 14);
     $rem_val = $lb_val % 14;
     $ent1 -> configure(-text => $kg_val);
     $ent2 -> configure(-text => $st_val);
