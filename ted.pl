@@ -38,14 +38,12 @@ $mw -> bind('<Control-q>', [\&exit]);
 my $types = [ ['Perl files', '.pl'],
               ['All Files',   '*'],];
 
-$t = $mw->LineNumberText("Text",
-            -height => 35, -width => 130,
-            -wrap => 'word',
-            -font=>['Courier',10],
-            -linenumfont => ['Courier', 8],
-            -curlinehighlight=>'both',
-            -scrollbars => 'osoe')->pack(-side => 'bottom',
-            -fill => 'both', -expand => 1);
+$t = $mw->Scrolled("Text", -height => 35, -width => 130,
+                    -tabs => [qw/0.35i 0.7i/],
+                    -wrap => 'word',
+                    -font=>['Courier',10],
+                    -scrollbars => 'osoe')->pack(-side => 'bottom',
+                    -fill => 'both', -expand => 1);
 
 MainLoop;
 
@@ -62,7 +60,7 @@ sub open_file {
 
 sub save_file {
     my $save = $mw->getSaveFile(-filetypes => $types,
-                                -initialfile => $filename,
+                                -initialfile => $filename
                                 -defaultextension => '.pl');
      open (FILE, ">$save");
      print FILE $t->get("1.0", "end");
@@ -73,9 +71,9 @@ sub save_file {
 sub display_about {
     my $ftp_warn = $mw->messageBox(
       -title   => 'Ted - Tiny Editor',
-      -message => "Author - Tony Winfield\n\nVersion 1.01 - 30/09/2020",
+      -message => "Author - Tony Winfield\n\nVersion 1.21 - 04/10/2020",
       -type    => 'OK',
-      -icon    => 'info',
+#      -icon    => 'info',
     );
 
     if ( $ftp_warn eq 'OK' ) {
