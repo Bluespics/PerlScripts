@@ -1,9 +1,8 @@
 
 use Tk;
-use Tk::LineNumberText;
+use Tk::BrowseEntry;
 
-$mw = MainWindow->new;
-$mw -> title("Ted - Tiny Editor");
+my $mw = MainWindow->new(-title => "Ted - Tiny Editor");
 
 my $menubar = $mw -> Menu(-type => 'menubar');
 $mw -> configure(-menu => $menubar);
@@ -38,12 +37,44 @@ $mw -> bind('<Control-q>', [\&exit]);
 my $types = [ ['Perl files', '.pl'],
               ['All Files',   '*'],];
 
+my $f = $mw->Frame->pack(-side => 'top');
+
+my $family = 'Courier';
+my $be = $f->BrowseEntry(-label => 'Family:', -variable => \$family,
+            -browsecmd => \&apply_font)->pack(-fill => 'x', -side => 'left');
+$be->insert('end', sort $mw->fontFamilies);
+
+my $size = 10;
+my $bentry = $f->BrowseEntry(-label => 'Size:', -variable => \$size,
+            -browsecmd => \&apply_font)->pack(-side => 'left');
+$bentry->insert('end', (3 .. 32));
+
+my $weight = 'normal';
+$f->Checkbutton(-onvalue => 'bold', -offvalue => 'normal',
+            -text => 'Bold', -variable => \$weight,
+            -command => \&apply_font)->pack(-side => 'left');
+
+my $slant = 'roman';
+$f->Checkbutton(-onvalue => 'italic', -offvalue => 'roman',
+            -text => 'Italic', -variable => \$slant,
+            -command => \&apply_font)->pack(-side => 'left');
+
+my $underline = 0;
+$f->Checkbutton(-text => 'Underline', -variable => \$underline,
+            -command => \&apply_font)->pack(-side => 'left');
+
+my $overstrike = 0;
+$f->Checkbutton(-text => 'Overstrike', -variable => \$overstrike,
+            -command => \&apply_font)->pack(-side => 'left');
+
 $t = $mw->Scrolled("Text", -height => 35, -width => 130,
                     -tabs => [qw/0.35i 0.7i/],
                     -wrap => 'word',
-                    -font=>['Courier',10],
+#                    -font=>['Courier',10],
                     -scrollbars => 'osoe')->pack(-side => 'bottom',
                     -fill => 'both', -expand => 1);
+
+&apply_font;
 
 MainLoop;
 
@@ -71,9 +102,9 @@ sub save_file {
 sub display_about {
     my $ftp_warn = $mw->messageBox(
       -title   => 'Ted - Tiny Editor',
-      -message => "Author - Tony Winfield\n\nVersion 1.21 - 04/10/2020",
+      -message => "Author - Tony Winfield\n\nVersion 1.30 - 04/10/2020",
       -type    => 'OK',
-#      -icon    => 'info',
+      -icon    => 'info',
     );
 
     if ( $ftp_warn eq 'OK' ) {
@@ -83,4 +114,15 @@ sub display_about {
 
 sub clear_screen {
     $t -> delete('1.0', 'end');
+}
+
+sub apply_font {
+     # Specify all options for font in an anonymous array
+     $t->configure(-font =>
+        [-family => $family,
+        -size => $size,
+        -weight => $weight,
+        -slant => $slant,
+        -underline => $underline,
+        -overstrike => $overstrike]);
 }
