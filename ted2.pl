@@ -1,5 +1,6 @@
 
 use Tk;
+use Tk::ToolBar;
 use Tk::BrowseEntry;
 
 my $mw = MainWindow->new(-title => "Ted - Tiny Editor");
@@ -37,7 +38,23 @@ $mw -> bind('<Control-q>', [\&exit]);
 my $types = [ ['Perl files', '.pl'],
               ['All Files',   '*'],];
 
-my $f = $mw->Frame->pack(-side => 'top');
+my $f = $mw->Frame->pack(-side => 'top',
+                        -anchor => 'w');
+
+my $tb1 = $f->ToolBar()->pack(-side => 'left');
+$tb1->ToolButton(-image   => 'filenew22',
+                 -tip     => 'New',
+                 -command => \&clear_screen);
+$tb1->ToolButton(-image   => 'fileopen22',
+                 -tip     => 'Open',
+                 -command => \&open_file);
+$tb1->ToolButton(-image   => 'filesave22',
+                 -tip     => 'Save',
+                 -command => \&save_file);
+$tb1->ToolButton(-image   => 'editdelete22',
+                 -tip     => 'Exit',
+                 -command => \&exit);
+$tb1->separator;
 
 my $family = 'Courier';
 my $be = $f->BrowseEntry(-label => 'Family:', -variable => \$family,
@@ -70,7 +87,6 @@ $f->Checkbutton(-text => 'Overstrike', -variable => \$overstrike,
 $t = $mw->Scrolled("Text", -height => 35, -width => 130,
                     -tabs => [qw/0.35i 0.7i/],
                     -wrap => 'word',
-#                    -font=>['Courier',10],
                     -scrollbars => 'osoe')->pack(-side => 'bottom',
                     -fill => 'both', -expand => 1);
 
@@ -102,7 +118,7 @@ sub save_file {
 sub display_about {
     my $ftp_warn = $mw->messageBox(
       -title   => 'Ted - Tiny Editor',
-      -message => "Author - Tony Winfield\n\nVersion 1.31 - 06/10/2020",
+      -message => "Author - Tony Winfield\n\nVersion 1.40 - 06/10/2020",
       -type    => 'OK',
       -icon    => 'info',
     );
